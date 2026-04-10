@@ -7,11 +7,11 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Syncopate:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Syncopate:wght@700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary-yellow: #FFFF00; 
+            --primary-yellow: #FFFF00; /* Mango Electric Yellow */
             --pure-black: #000000;    
             --pure-white: #FFFFFF;    
             --dark-grey: #111111;
@@ -36,8 +36,6 @@
 
         #deli-barras-wrapper { background-color: var(--pure-black); width: 100%; position: relative; z-index: 1; }
 
-        /* OPTIMIZACIÓN 1: Adiós feTurbulence, hola patrón ligero de CSS/PNG. 
-           (Te sugiero cambiar esto por una imagen .png de ruido estático si quieres más textura) */
         #deli-barras-wrapper::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.02) 75%, rgba(255,255,255,0.02)), repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.02) 75%, rgba(255,255,255,0.02));
@@ -71,7 +69,6 @@
         .hero-bg-text { position: absolute; font-family: 'Syncopate'; font-size: 20vw; font-weight: 900; color: rgba(255,255,255,0.04); white-space: nowrap; user-select: none; z-index: 2; top: 10%; }
 
         .fan-container { position: relative; height: 55vh; width: 100%; max-width: 1000px; display: flex; justify-content: center; align-items: flex-end; z-index: 3; margin-top: 12vh; animation: float 6s ease-in-out infinite; }
-        /* OPTIMIZACIÓN: Pausar animaciones en hover para no saturar al mover barras */
         .fan-container:hover { animation-play-state: paused; }
         @keyframes float { 0%, 100% { transform: translate3d(0px, 0px, 0); } 50% { transform: translate3d(0px, -15px, 0); } }
 
@@ -79,7 +76,7 @@
         .bar { 
             --rot: 0deg; --tx: 0px; --ty: 0px; --scale: 1; 
             position: absolute; height: 40vh; max-height: 420px; width: auto; object-fit: contain; 
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.8)); /* Sombra reducida para más FPS */
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.8)); 
             transform: translate3d(var(--tx), var(--ty), 0) rotate(var(--rot)) scale(var(--scale)); 
             transition: transform 0.5s cubic-bezier(0.25, 1, 0.4, 1), filter 0.5s ease, opacity 0.5s ease; 
             transform-origin: center; pointer-events: none; 
@@ -105,7 +102,7 @@
 
         /* MARQUEE */
         .yellow-marquee { background: var(--primary-yellow); padding: 20px 0; overflow: hidden; white-space: nowrap; transform: rotate(-2deg) scale(1.05); margin: 50px 0; z-index: 10; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .marquee-text { display: inline-block; font-family: 'Syncopate'; font-size: 1.5rem; font-weight: 900; color: var(--pure-black); animation: marquee 15s linear infinite; letter-spacing: 2px; will-change: transform; /* Aquí sí vale la pena will-change */ }
+        .marquee-text { display: inline-block; font-family: 'Syncopate'; font-size: 1.5rem; font-weight: 900; color: var(--pure-black); animation: marquee 15s linear infinite; letter-spacing: 2px; will-change: transform; }
         
         @keyframes laserScan { 0% { left: -100%; } 100% { left: 200%; } }
         @keyframes marquee { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-50%,0,0); } }
@@ -119,13 +116,12 @@
 
         .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; }
         
-        /* OPTIMIZACIÓN: Quitamos will-change y simplificamos la sombra en hover */
         .bento-box { background: var(--dark-grey); border-radius: 20px; padding: 20px; border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; justify-content: center; transition: all 0.3s ease; position: relative; overflow: hidden; animation: breathe 6s ease-in-out infinite alternate; }
         .bento-stat::before { content: ''; position: absolute; top: 0; left: -100%; width: 80%; height: 3px; background: linear-gradient(90deg, transparent, var(--primary-yellow), transparent); animation: laserScan 3s linear infinite; z-index: 10; }
         
         .bento-img-container { grid-column: 1 / 5; grid-row: 1 / 2; padding: 0; border: none; animation: none; height: 48vh; min-height: 250px; border-radius: 20px; }
         .bento-img-container video, .bento-img-container img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; transition: transform 0.5s; }
-        .bento-img-container:hover video, .bento-img-container:hover img { transform: scale(1.05); } /* Quité anim infinita para más fluidez */
+        .bento-img-container:hover video, .bento-img-container:hover img { transform: scale(1.05); }
 
         .box-1 { animation-delay: 0s; grid-column: 1 / 2; grid-row: 2 / 3; } .box-1::before { animation-delay: 0s; }
         .box-2 { animation-delay: -2s; grid-column: 2 / 3; grid-row: 2 / 3; } .box-2::before { animation-delay: 0.7s; }
@@ -138,6 +134,140 @@
         .bento-stat h4 { font-family: 'Syncopate'; font-size: clamp(2rem, 3vw, 3.5rem); color: var(--primary-yellow); margin-bottom: 5px; line-height: 1;}
         .bento-stat span { font-size: clamp(0.7rem, 1vw, 0.9rem); color: var(--pure-white); text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
         .bento-stat p { font-size: clamp(0.7rem, 0.8vw, 0.8rem); color: #777; margin-top: 10px; }
+
+        /* =========================================
+           NUEVAS SECCIONES DE INFORMACIÓN (SIN IMÁGENES)
+           ========================================= */
+        .info-block {
+            padding: 80px 5%;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Bloque 1: Promos */
+        .promo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 40px;
+        }
+        .css-icon-wrapper {
+            width: 120px; height: 120px;
+            background: rgba(255,255,0,0.05);
+            border: 2px solid var(--primary-yellow);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex; justify-content: center; align-items: center;
+            transition: transform 0.3s;
+        }
+        .promo-item:hover .css-icon-wrapper { transform: scale(1.1); background: var(--primary-yellow); }
+        .promo-item:hover .css-icon-wrapper svg { fill: var(--pure-black); }
+        .css-icon-wrapper svg { width: 50px; height: 50px; fill: var(--primary-yellow); transition: fill 0.3s; }
+        .promo-item h4 { color: var(--pure-white); font-size: 1.1rem; line-height: 1.4; }
+
+        /* Bloque 2 y 3: Split views */
+        .split-view {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-top: 40px;
+        }
+        .split-visual { flex: 1; display: flex; justify-content: center; }
+        .split-content { flex: 1; }
+
+        /* Ilustración CSS para "Cajas" - ACTUALIZADA CON COLORES MANGO BC */
+        .css-box-stack {
+            position: relative;
+            width: 250px; height: 250px;
+        }
+        .css-box {
+            position: absolute;
+            border-radius: 8px;
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Syncopate'; font-weight: 900; font-size: 1.5rem; text-transform: uppercase;
+            box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
+            transition: transform 0.3s;
+        }
+        
+        /* Caja Principal (Frente/Abajo) */
+        .cb-1 { 
+            width: 140px; height: 140px; 
+            bottom: 0; left: 0; 
+            z-index: 3; 
+            background: linear-gradient(135deg, #ffff33, var(--primary-yellow)); /* Degradado Mango */
+            border: 3px solid var(--primary-yellow);
+            color: var(--pure-black); /* Texto Negro */
+            text-shadow: 1px 1px 0 #FFF;
+        }
+        /* Caja Media (Lado) */
+        .cb-2 { 
+            width: 120px; height: 120px; 
+            bottom: 20px; right: 10px; 
+            z-index: 2; 
+            background: linear-gradient(135deg, #222, var(--dark-grey)); /* Degradado Gris Oscuro */
+            border: 3px solid var(--primary-yellow); /* Borde Mango */
+            color: var(--primary-yellow); /* Texto Mango */
+            text-shadow: 1px 1px 0 var(--pure-black);
+        }
+        /* Caja Pequeña (Atrás/Arriba) */
+        .cb-3 { 
+            width: 100px; height: 100px; 
+            top: 10px; left: 40px; 
+            z-index: 1; 
+            background: linear-gradient(135deg, #fff, #f0f0f0); /* Degradado Blanco */
+            border: 3px solid var(--primary-yellow); /* Borde Mango */
+            color: var(--pure-black); /* Texto Negro */
+            text-shadow: 1px 1px 0 #AAA;
+        }
+
+        .split-visual:hover .css-box { transform: translateY(-5px) rotate(2deg); }
+
+        /* Listas con check */
+        .check-list { list-style: none; padding: 0; margin: 0; }
+        .check-list li {
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 20px;
+            color: #cccccc;
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+        .check-list li::before {
+            content: '✓';
+            position: absolute; left: 0; top: 0;
+            color: var(--pure-black);
+            background-color: var(--primary-yellow);
+            width: 20px; height: 20px;
+            border-radius: 4px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.8rem; font-weight: 900;
+        }
+        .check-list strong { color: var(--pure-white); font-weight: 700; }
+
+        /* Ticket Nutricional CSS */
+        .nutritional-ticket {
+            background: #ffffff;
+            color: var(--pure-black);
+            padding: 30px;
+            border-radius: 5px;
+            border-top: 15px solid #e0e0e0;
+            border-bottom: 4px dashed #cccccc;
+            width: 100%; max-width: 380px;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+        }
+        .ticket-title { text-align: center; font-weight: 900; margin-bottom: 15px; font-size: 1.1rem; line-height: 1.4; text-transform: uppercase; }
+        .ticket-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dotted #999; font-size: 0.95rem; font-weight: 700; }
+        .ticket-row.sub-row { padding-left: 15px; color: #555; font-weight: 400; border-bottom: none; padding-bottom: 0; }
+
+        /* BOTÓN REUTILIZABLE */
+        .btn-industrial-box { display: inline-flex; justify-content: center; align-items: center; padding: 15px 30px; background: var(--primary-yellow); color: var(--pure-black); font-family: 'Syncopate'; font-size: 1rem; font-weight: 900; text-transform: uppercase; border-radius: 4px; transition: all 0.3s ease; text-decoration: none; border: none; cursor: pointer; }
+        .btn-industrial-box:hover { background: var(--pure-white); transform: translateY(-3px); }
+
 
         /* SECCIONES: Flexbox */
         .benefits-section, .pricing-section, .testimonials-section { padding: 80px 5%; border-top: 1px solid rgba(255,255,255,0.05); }
@@ -166,7 +296,7 @@
         .pricing-card ul { list-style: none; margin-bottom: 40px; text-align: left; flex-grow: 1; padding-left: 0; }
         .pricing-card ul li { margin-bottom: 15px; font-size: 0.95rem; color: #ccc; padding-left: 30px; position: relative; line-height: 1.4; }
         .pricing-card ul li::before { content: '✓'; color: var(--primary-yellow); position: absolute; left: 0; font-weight: bold; font-size: 1.2rem; }
-        .btn-industrial-box { display: inline-flex; justify-content: center; align-items: center; padding: 15px 30px; background: var(--primary-yellow); color: var(--pure-black); font-family: 'Syncopate'; font-size: 1rem; font-weight: 900; text-transform: uppercase; border-radius: 4px; transition: all 0.3s ease; width: 100%; margin-top: auto; }
+        .pricing-card .btn-industrial-box { width: 100%; margin-top: auto; }
         .pricing-card:hover .btn-industrial-box { background: var(--pure-white); }
 
         /* FORM Y CTA */
@@ -219,6 +349,12 @@
             .pricing-card.featured { transform: none; }
             .form-wrapper { grid-template-columns: 1fr; gap: 30px; }
             .form-section { padding: 60px 5%; }
+            
+            /* Ajustes Info Blocks */
+            .promo-grid { grid-template-columns: 1fr; }
+            .split-view { flex-direction: column; gap: 40px; text-align: center; }
+            .check-list li { text-align: left; }
+            .css-box-stack { transform: scale(0.8); }
         }
         
         @media (max-width: 600px) {
@@ -281,6 +417,87 @@
                 <div class="bento-box bento-stat box-2 fade-in"><h4>100%</h4><span>Natural</span><p>Ingredientes seleccionados</p></div>
                 <div class="bento-box bento-stat box-3 fade-in"><h4>0%</h4><span>Azúcar Añadida</span><p>Sabor sin remordimientos</p></div>
                 <div class="bento-box bento-stat box-4 fade-in"><h4>#1</h4><span>Ventas Retail</span><p>Preferencia del consumidor</p></div>
+            </div>
+        </section>
+
+        <section class="info-block" style="background: var(--dark-grey);">
+            <div class="section-header fade-in">
+                <h2>Solo este mes, al convertirte<br>en <span>distribuidor</span> recibes:</h2>
+            </div>
+            <div class="promo-grid fade-in">
+                <div class="promo-item">
+                    <div class="css-icon-wrapper">
+                        <svg viewBox="0 0 24 24"><path d="M21 16.5c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18-.21 0-.41-.06-.57-.18l-7.9-4.44A.991.991 0 0 1 3 16.5v-9c0-.38.21-.71.53-.88l7.9-4.44c.16-.12.36-.18.57-.18.21 0 .41.06.57.18l7.9 4.44c.32.17.53.5.53.88v9zM12 4.15L6.04 7.5 12 10.85l5.96-3.35L12 4.15zM5 15.91l6 3.38v-6.71L5 9.19v6.72zm14 0v-6.72l-6 3.39v6.71l6-3.38z"/></svg>
+                    </div>
+                    <h4>30% de descuento en<br>tu primer pedido</h4>
+                </div>
+                <div class="promo-item">
+                    <div class="css-icon-wrapper">
+                        <svg viewBox="0 0 24 24"><path d="M12 1c-5 0-9 4-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-5-4-9-9-9z"/></svg>
+                    </div>
+                    <h4>2 meses de<br>acompañamiento con asesor</h4>
+                </div>
+                <div class="promo-item">
+                    <div class="css-icon-wrapper">
+                        <svg viewBox="0 0 24 24"><path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm7 17H5V8h14v12zm-7-8c-1.66 0-3-1.34-3-3H7c0 2.76 2.24 5 5 5s5-2.24 5-5h-2c0 1.66-1.34 3-3 3z"/></svg>
+                    </div>
+                    <h4>Exhibidores incluidos</h4>
+                </div>
+            </div>
+            <div class="fade-in" style="text-align: center;">
+                <a href="#cuestionario" class="btn-industrial-box" onclick="document.getElementById('kitSelect').value='distribuidor';">QUIERO SER DISTRIBUIDOR</a>
+            </div>
+        </section>
+
+        <section class="info-block" style="background: var(--pure-black);">
+            <div class="section-header fade-in">
+                <h2>Confianza y respaldo:<br><span>por qué sí funcionamos</span></h2>
+            </div>
+            <div class="split-view fade-in">
+                <div class="split-visual">
+                    <div class="css-box-stack">
+                        <div class="css-box cb-3">DELI</div> <div class="css-box cb-2">DELI</div> <div class="css-box cb-1">DELI</div> </div>
+                </div>
+                <div class="split-content">
+                    <ul class="check-list">
+                        <li>Más de <strong>300 distribuidores</strong> activos en México</li>
+                        <li>Presencia en <strong>130,000 puntos de venta</strong></li>
+                        <li><strong>Cobertura nacional</strong> con envíos directos</li>
+                        <li><strong>+10 años de experiencia</strong> en el mercado</li>
+                        <li>200 personas trabajando para que <strong>tú vendas más</strong></li>
+                        <li><strong>Acompañamiento comercial</strong> por territorio y zona</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-block" style="background: var(--dark-grey);">
+            <div class="split-view fade-in">
+                <div class="split-visual">
+                    <div class="nutritional-ticket">
+                        <div class="ticket-title">Porción 100g.<br>Contenido energético<br>430 Kcal (1800 kj)</div>
+                        <div class="ticket-row"><span>Proteínas</span> <span>12 g.</span></div>
+                        <div class="ticket-row"><span>Grasas totales</span> <span>15 g.</span></div>
+                        <div class="ticket-row sub-row"><span>Grasas Saturadas</span> <span>7 g.</span></div>
+                        <div class="ticket-row sub-row"><span>Grasas Trans</span> <span>0 g.</span></div>
+                        <div class="ticket-row"><span>Hidratos de carbono</span> <span>61 g.</span></div>
+                        <div class="ticket-row sub-row"><span>Azúcares</span> <span>19 g.</span></div>
+                        <div class="ticket-row sub-row"><span>Azúcares añadidos</span> <span>6 g.</span></div>
+                        <div class="ticket-row"><span>Fibra dietética</span> <span>5 g.</span></div>
+                        <div class="ticket-row"><span>Sodio</span> <span>30 mg.</span></div>
+                    </div>
+                </div>
+                <div class="split-content">
+                    <div class="section-header" style="text-align: left;">
+                        <h2>¿QUÉ <span>CONTIENEN?</span></h2>
+                    </div>
+                    <ul class="check-list">
+                        <li><strong>Granola completa</strong> con avena, cacahuate, semilla de calabaza y linaza, que aportan fibra, proteína vegetal y energía natural.</li>
+                        <li><strong>Miel de abeja y azúcar</strong> que dan el toque justo de dulzor y energía inmediata.</li>
+                        <li><strong>Mermelada de fruta</strong> para un relleno delicioso y natural.</li>
+                        <li><strong>Salvado de trigo y huevo</strong> que complementan con fibra y proteína para un snack más nutritivo.</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
@@ -374,14 +591,13 @@
             setTimeout(() => loader.style.display = 'none', 500);
         });
 
-        // OPTIMIZACIÓN LÓGICA DEL ABANICO (Guardar variables para no calcular en cada frame)
+        // OPTIMIZACIÓN LÓGICA DEL ABANICO
         const fanContainer = document.getElementById('fanContainer');
         const bars = Array.from(document.querySelectorAll('.bar'));
         const flavorDisplay = document.getElementById('flavorDisplay');
-        let fanRect = null; // Caché del tamaño del contenedor
+        let fanRect = null;
 
         if(fanContainer) {
-            // Actualizar el tamaño solo cuando es necesario (scroll o resize)
             const updateRect = () => { fanRect = fanContainer.getBoundingClientRect(); };
             window.addEventListener('resize', updateRect);
             window.addEventListener('scroll', updateRect, { passive: true });
@@ -400,7 +616,7 @@
 
             fanContainer.addEventListener('mouseenter', () => {
                 fanContainer.classList.add('has-active');
-                updateRect(); // Calculamos posición al entrar
+                updateRect();
             });
 
             let ticking = false;
@@ -428,15 +644,13 @@
             });
         }
 
-        // OPTIMIZACIÓN INTERSECTION OBSERVER (Pausar videos si no se ven)
+        // OPTIMIZACIÓN INTERSECTION OBSERVER
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { 
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    // Si es video, dale play
                     if(entry.target.tagName === 'VIDEO') entry.target.play().catch(e => {}); 
                 } else {
-                    // Si es video y sale de pantalla, pausarlo ahorra muchísima memoria
                     if(entry.target.tagName === 'VIDEO') entry.target.pause();
                 }
             });
@@ -444,7 +658,7 @@
         
         document.querySelectorAll('.fade-in, video').forEach(el => observer.observe(el));
 
-        // Formulario (Sin cambios drásticos, solo limpio)
+        // Formulario
         document.getElementById('atomLeadForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = document.getElementById('btnSubmitForm');
