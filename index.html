@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mango BC | Industrial Excellence</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
@@ -555,95 +555,169 @@
         .vd-features li { color: #DDD; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; }
         .vd-features li::before { content: '✓'; color: var(--mango); font-weight: 900; }
 
-        /* =========================================================
-           5.5 SECCIÓN CULTURA E IMÁGENES (CARRUSEL HORIZONTAL)
+       /* =========================================================
+           5.5 SECCIÓN CULTURA (GRID ESTILO PORTAFOLIO MULTIPÁGINA)
            ========================================================= */
-        .cultura-ig { 
-            background: var(--dark); 
-            padding: 100px 5%; 
-            text-align: center; 
-        }
-        .cultura-ig .section-title { 
-            color: var(--white); 
-            margin-bottom: 15px; 
-        }
-        .cultura-ig .section-desc { 
-            color: #AAA; 
-            margin-bottom: 50px; 
-        }
-        .cultura-carousel {
+        .cultura-grid-section { 
+            background: #cfd1d3; 
+            /* Modificaciones para que quepa en 1 sola vista */
+            min-height: 100vh; /* Ocupa el 100% del alto de la pantalla */
+            padding: 40px 5%; 
             display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 20px;
-            padding: 10px 0 30px 0;
-            scrollbar-width: thin;
-            scrollbar-color: var(--mango) transparent;
-            max-width: 1200px;
-            margin: 0 auto;
-            -webkit-overflow-scrolling: touch;
+            flex-direction: column;
+            justify-content: center; /* Centra todo verticalmente */
+            align-items: center;
+            text-align: center; 
+            color: var(--dark);
         }
-        .cultura-carousel::-webkit-scrollbar {
-            height: 8px;
+        
+        /* Aseguramos que los contenedores internos tomen el ancho correcto */
+        .cultura-grid-section > .reveal { width: 100%; }
+
+        .cultura-grid-section .pre-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
         }
-        .cultura-carousel::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.05);
-            border-radius: 10px;
+
+        .cultura-grid-section .section-title { 
+            color: var(--dark); 
+            margin-bottom: 25px; /* Reducido para ahorrar espacio vertical */
+            font-size: clamp(1.8rem, 3.5vw, 3rem); /* Ligeramente más pequeño */
+            letter-spacing: -1px;
         }
-        .cultura-carousel::-webkit-scrollbar-thumb {
-            background: var(--mango);
-            border-radius: 10px;
-        }
-        .ig-post {
-            flex: 0 0 350px;
+
+        .gallery-carousel-container {
             position: relative;
-            aspect-ratio: 1 / 1;
-            overflow: hidden;
-            border-radius: 15px;
-            cursor: pointer;
-            background: #252525;
-            scroll-snap-align: center;
+            width: 100%;
+            max-width: 950px; /* Reducido de 1200px para que las fotos no sean tan altas */
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Reducido para acercar las flechas */
         }
-        .ig-post img {
+
+        .gallery-viewport {
+            overflow: hidden; 
+            width: 100%;
+            padding: 10px 0; 
+        }
+
+        .gallery-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform;
+        }
+
+        .cultura-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px; /* Reducido de 25px para ahorrar espacio vertical */
+            min-width: 100%; 
+            flex-shrink: 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 1 / 1; 
+            overflow: hidden;
+            background: #111;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+        }
+
+        .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s;
         }
-        .ig-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(28,28,28,0.85);
+
+        .gallery-item:hover img { 
+            transform: scale(1.08); 
+            filter: brightness(0.85);
+        }
+
+        .gallery-arrow {
+            background: #ffffff;
+            color: var(--dark);
+            border: none;
+            width: 45px; /* Un poco más sutiles */
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
             display: flex;
             justify-content: center;
             align-items: center;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            padding: 20px;
-        }
-        .ig-post:hover img { transform: scale(1.1); }
-        .ig-post:hover .ig-overlay { opacity: 1; }
-        
-        .ig-text { 
-            text-align: center; 
-            transform: translateY(20px); 
-            transition: transform 0.4s ease; 
-        }
-        .ig-post:hover .ig-text { transform: translateY(0); }
-        .ig-text h4 { 
-            color: var(--mango); 
-            font-family: 'Montserrat', sans-serif; 
-            font-size: 1.2rem; 
-            margin-bottom: 10px; 
-            text-transform: uppercase; 
-            font-weight: 900;
-        }
-        .ig-text p { 
-            color: var(--white); 
-            font-size: 0.95rem; 
-            line-height: 1.5; 
+            flex-shrink: 0;
+            z-index: 2;
         }
 
+        .gallery-arrow:hover:not(:disabled) {
+            background: var(--mango); 
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .gallery-arrow:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .grid-footer { 
+            margin-top: 25px; /* Reducido de 50px a 25px */
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 15px; 
+            width: 100%;
+        }
+        
+        .grid-footer p { 
+            font-size: 0.85rem; 
+            color: #444; 
+            border-bottom: 1px solid #444; 
+            padding-bottom: 2px; 
+        }
+        
+        .btn-contacto-azul { 
+            background-color: #1230d3; 
+            color: #FFFFFF !important; 
+            padding: 14px 40px; 
+            font-family: 'Montserrat', sans-serif; 
+            font-weight: 600; 
+            text-decoration: none; 
+            letter-spacing: 1px; 
+            font-size: 0.85rem; 
+            transition: background-color 0.3s, transform 0.3s; 
+        }
+        
+        .btn-contacto-azul:hover { 
+            background-color: #0b1f8c; 
+            transform: translateY(-3px); 
+        }
+
+        /* AJUSTES RESPONSIVOS */
+        @media (max-width: 992px) {
+            .cultura-gallery { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .gallery-carousel-container { gap: 10px; max-width: 700px; }
+            .cultura-grid-section { min-height: auto; padding: 80px 5%; } /* En móviles desactivamos el 100vh para que no se apriete */
+        }
+
+        @media (max-width: 600px) {
+            .cultura-gallery { grid-template-columns: 1fr; max-width: 300px; margin: 0 auto;}
+            .gallery-carousel-container { display: block; position: relative;}
+            .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); }
+            .gallery-arrow:hover:not(:disabled) { transform: translateY(-50%) scale(1.1); }
+            .prev-arrow { left: 0px; }
+            .next-arrow { right: 0px; }
+        }
         /* =========================================================
            6. TALENTO (Acordeón)
            ========================================================= */
@@ -1115,42 +1189,44 @@
         </div>
     </section>
 
-    <section class="cultura-ig" id="cultura">
+   <section class="cultura-grid-section" id="cultura">
         <div class="reveal">
-            <h2 class="section-title" style="color: var(--white);">CULTURA <br><span style="color: var(--mango);">DIVERSA Y EXPERTA</span></h2>
-            <p class="section-desc" style="color: #AAA;">Actitud de sí, trabajo en equipo y enfoque total a resultados.</p>
+            <p class="pre-title">NUESTRA ESENCIA</p>
+            <h2 class="section-title">Cultura diversa y experta</h2>
+        </div>
+<div class="gallery-carousel-container reveal delay-1">
+            <button class="gallery-arrow prev-arrow" id="prevGallery">❮</button>
+
+            <div class="gallery-viewport">
+                <div class="gallery-track" id="galleryTrack">
+                    
+                    <div class="cultura-gallery">
+                        <div class="gallery-item"><img src="hackathon.jpg" alt="Cultura 1" loading="lazy"></div>
+                        <div class="gallery-item"><img src="aniversario.jpg" alt="Cultura 2" loading="lazy"></div>
+                        <div class="gallery-item"><img src="junta.jpg" alt="Cultura 3" loading="lazy"></div>
+                        <div class="gallery-item"><img src="equipo1.jpg" alt="Cultura 4" loading="lazy"></div>
+                        <div class="gallery-item"><img src="equipo2.jpg" alt="Cultura 5" loading="lazy"></div>
+                        <div class="gallery-item"><img src="equipo3.jpg" alt="Cultura 6" loading="lazy"></div>
+                    </div>
+
+                    <div class="cultura-gallery">
+                        <div class="gallery-item"><img src="foto7.jpg" alt="Cultura 7" loading="lazy"></div>
+                        <div class="gallery-item"><img src="foto8.jpg" alt="Cultura 8" loading="lazy"></div>
+                        <div class="gallery-item"><img src="foto9.jpg" alt="Cultura 9" loading="lazy"></div>
+                        <div class="gallery-item"><img src="foto10.jpg" alt="Cultura 10" loading="lazy"></div>
+                        <div class="gallery-item"><img src="foto11.jpg" alt="Cultura 11" loading="lazy"></div>
+                        <div class="gallery-item"><img src="foto12.jpg" alt="Cultura 12" loading="lazy"></div>
+                    </div>
+                    
+                    </div>
+            </div>
+
+            <button class="gallery-arrow next-arrow" id="nextGallery">❯</button>
         </div>
 
-        <div class="cultura-carousel reveal delay-1">
-            <div class="ig-post">
-                <img src="hackathon.jpg" alt="Hackathon Interno">
-                <div class="ig-overlay">
-                    <div class="ig-text">
-                        <h4>Hackathon Interno</h4>
-                        <p>Convivimos y descubrimos nuevas formas de trabajar en equipo.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="ig-post">
-                <img src="aniversario.jpg" alt="Aniversario 12">
-                <div class="ig-overlay">
-                    <div class="ig-text">
-                        <h4>Aniversario 12</h4>
-                        <p>Además de celebrar, descubrimos el poder de la Inteligencia Artificial.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="ig-post">
-                <img src="junta.jpg" alt="Junta mensual">
-                <div class="ig-overlay">
-                    <div class="ig-text">
-                        <h4>Junta mensual</h4>
-                        <p>Aunque tenemos equipo en Argentina, Colombia, Chile y México, tenemos la misión de sentirnos en la misma oficina.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="grid-footer reveal delay-2">
+            <p>Imágenes de nuestro equipo en acción</p>
+            <a href="#talento" class="btn-contacto-azul">CONTÁCTENOS</a>
         </div>
     </section>
 
