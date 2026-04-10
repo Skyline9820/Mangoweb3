@@ -372,7 +372,7 @@
         .carousel-dot { width: 10px; height: 10px; border-radius: 50%; background: #CCC; cursor: pointer; transition: background-color 0.3s, transform 0.3s; }
         .carousel-dot.active { background: var(--mango); transform: scale(1.2); }
 
-        /* =====================================================f====
+        /* =========================================================
            4.5 SECCIÓN: MARCAS (Fondo Oscuro Sólido)
            ========================================================= */
         .marcas-expansion { 
@@ -555,24 +555,20 @@
         .vd-features li { color: #DDD; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; }
         .vd-features li::before { content: '✓'; color: var(--mango); font-weight: 900; }
 
-       /* =========================================================
-           5.5 SECCIÓN CULTURA (GRID ESTILO PORTAFOLIO MULTIPÁGINA)
+      /* =========================================================
+           5.5 SECCIÓN CULTURA (GRID 3x2 GARANTIZADO)
            ========================================================= */
         .cultura-grid-section { 
             background: #cfd1d3; 
-            /* Modificaciones para que quepa en 1 sola vista */
-            min-height: 100vh; /* Ocupa el 100% del alto de la pantalla */
-            padding: 40px 5%; 
+            padding: 80px 5%; 
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Centra todo verticalmente */
             align-items: center;
             text-align: center; 
             color: var(--dark);
         }
         
-        /* Aseguramos que los contenedores internos tomen el ancho correcto */
-        .cultura-grid-section > .reveal { width: 100%; }
+        .cultura-grid-section > .reveal { width: 100%; margin-bottom: 30px; }
 
         .cultura-grid-section .pre-title {
             font-family: 'Montserrat', sans-serif;
@@ -586,25 +582,29 @@
 
         .cultura-grid-section .section-title { 
             color: var(--dark); 
-            margin-bottom: 25px; /* Reducido para ahorrar espacio vertical */
-            font-size: clamp(1.8rem, 3.5vw, 3rem); /* Ligeramente más pequeño */
+            margin-bottom: 0; 
+            font-size: clamp(1.8rem, 3.5vw, 3rem); 
             letter-spacing: -1px;
         }
 
+        /* Contenedor Flex para separar Flechas + Galería */
         .gallery-carousel-container {
             position: relative;
             width: 100%;
-            max-width: 950px; /* Reducido de 1200px para que las fotos no sean tan altas */
+            max-width: 1000px; 
             margin: 0 auto;
             display: flex;
             align-items: center;
-            gap: 15px; /* Reducido para acercar las flechas */
+            justify-content: center;
+            gap: 30px; /* Separación fija y limpia entre las flechas y las fotos */
         }
 
+        /* La "Ventana" por donde se ven las fotos - CLAVE PARA QUE NO SEAN GIGANTES */
         .gallery-viewport {
             overflow: hidden; 
             width: 100%;
-            padding: 10px 0; 
+            max-width: 850px; /* Límite estricto: las fotos no pueden crecer más que esto */
+            border-radius: 12px;
         }
 
         .gallery-track {
@@ -615,9 +615,11 @@
 
         .cultura-gallery {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px; /* Reducido de 25px para ahorrar espacio vertical */
+            grid-template-columns: repeat(3, 1fr); /* 3 Columnas forzadas */
+            grid-template-rows: repeat(2, 1fr);    /* 2 Filas forzadas */
+            gap: 15px; /* Espacio separadito */
             min-width: 100%; 
+            width: 100%;
             flex-shrink: 0;
         }
 
@@ -626,14 +628,13 @@
             aspect-ratio: 1 / 1; 
             overflow: hidden;
             background: #111;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s;
+            transition: transform 0.6s ease;
         }
 
         .gallery-item:hover img { 
@@ -645,16 +646,13 @@
             background: #ffffff;
             color: var(--dark);
             border: none;
-            width: 45px; /* Un poco más sutiles */
-            height: 45px;
+            width: 45px; height: 45px;
             border-radius: 50%;
-            font-size: 1rem;
+            font-size: 1.2rem;
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
             flex-shrink: 0;
             z-index: 2;
         }
@@ -662,7 +660,6 @@
         .gallery-arrow:hover:not(:disabled) {
             background: var(--mango); 
             transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
 
         .gallery-arrow:disabled {
@@ -671,7 +668,7 @@
         }
 
         .grid-footer { 
-            margin-top: 25px; /* Reducido de 50px a 25px */
+            margin-top: 40px; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -679,44 +676,18 @@
             width: 100%;
         }
         
-        .grid-footer p { 
-            font-size: 0.85rem; 
-            color: #444; 
-            border-bottom: 1px solid #444; 
-            padding-bottom: 2px; 
-        }
-        
-        .btn-contacto-azul { 
-            background-color: #1230d3; 
-            color: #FFFFFF !important; 
-            padding: 14px 40px; 
-            font-family: 'Montserrat', sans-serif; 
-            font-weight: 600; 
-            text-decoration: none; 
-            letter-spacing: 1px; 
-            font-size: 0.85rem; 
-            transition: background-color 0.3s, transform 0.3s; 
-        }
-        
-        .btn-contacto-azul:hover { 
-            background-color: #0b1f8c; 
-            transform: translateY(-3px); 
+        /* Solo cambia a 2 columnas en tablets/móviles reales, no en tu laptop */
+        @media (max-width: 768px) {
+            .cultura-gallery { grid-template-columns: repeat(2, 1fr); }
+            .gallery-carousel-container { gap: 15px; }
         }
 
-        /* AJUSTES RESPONSIVOS */
-        @media (max-width: 992px) {
-            .cultura-gallery { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-            .gallery-carousel-container { gap: 10px; max-width: 700px; }
-            .cultura-grid-section { min-height: auto; padding: 80px 5%; } /* En móviles desactivamos el 100vh para que no se apriete */
-        }
-
-        @media (max-width: 600px) {
-            .cultura-gallery { grid-template-columns: 1fr; max-width: 300px; margin: 0 auto;}
-            .gallery-carousel-container { display: block; position: relative;}
+        @media (max-width: 500px) {
+            .gallery-carousel-container { display: block; position: relative; padding: 0 20px;}
             .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); }
-            .gallery-arrow:hover:not(:disabled) { transform: translateY(-50%) scale(1.1); }
             .prev-arrow { left: 0px; }
             .next-arrow { right: 0px; }
+            .cultura-gallery { grid-template-columns: 1fr; gap: 10px; }
         }
         /* =========================================================
            6. TALENTO (Acordeón)
@@ -1194,38 +1165,38 @@
             <p class="pre-title">NUESTRA ESENCIA</p>
             <h2 class="section-title">Cultura diversa y experta</h2>
         </div>
-<div class="gallery-carousel-container reveal delay-1">
+        <div class="gallery-carousel-container reveal delay-1">
             <button class="gallery-arrow prev-arrow" id="prevGallery">❮</button>
 
             <div class="gallery-viewport">
                 <div class="gallery-track" id="galleryTrack">
                     
                     <div class="cultura-gallery">
-                        <div class="gallery-item"><img src="hackathon.jpg" alt="Cultura 1" loading="lazy"></div>
-                        <div class="gallery-item"><img src="aniversario.jpg" alt="Cultura 2" loading="lazy"></div>
-                        <div class="gallery-item"><img src="junta.jpg" alt="Cultura 3" loading="lazy"></div>
-                        <div class="gallery-item"><img src="equipo1.jpg" alt="Cultura 4" loading="lazy"></div>
-                        <div class="gallery-item"><img src="equipo2.jpg" alt="Cultura 5" loading="lazy"></div>
-                        <div class="gallery-item"><img src="equipo3.jpg" alt="Cultura 6" loading="lazy"></div>
+                        <div class="gallery-item"><img src="lol-1.jpg" alt="Cultura 1" loading="lazy"></div>
+                        <div class="gallery-item"><img src="lol-2.jpg" alt="Cultura 2" loading="lazy"></div>
+                        <div class="gallery-item"><img src="lol-3.jpg" alt="Cultura 3" loading="lazy"></div>
+                        <div class="gallery-item"><img src="lol-4.jpg" alt="Cultura 4" loading="lazy"></div>
+                        <div class="gallery-item"><img src="lol-5.jpg" alt="Cultura 5" loading="lazy"></div>
+                        <div class="gallery-item"><img src="lol-6.jpg" alt="Cultura 6" loading="lazy"></div>
                     </div>
 
                     <div class="cultura-gallery">
-                        <div class="gallery-item"><img src="foto7.jpg" alt="Cultura 7" loading="lazy"></div>
-                        <div class="gallery-item"><img src="foto8.jpg" alt="Cultura 8" loading="lazy"></div>
-                        <div class="gallery-item"><img src="foto9.jpg" alt="Cultura 9" loading="lazy"></div>
-                        <div class="gallery-item"><img src="foto10.jpg" alt="Cultura 10" loading="lazy"></div>
-                        <div class="gallery-item"><img src="foto11.jpg" alt="Cultura 11" loading="lazy"></div>
-                        <div class="gallery-item"><img src="foto12.jpg" alt="Cultura 12" loading="lazy"></div>
+                        <div class="gallery-item"><img src="lol-1.jpg" alt="Cultura 7" loading="lazy"></div>
+                        <div class="gallery-item"><img src="lol-2.jpg" alt="Cultura 8" loading="lazy"></div>
+                        <div class="gallery-item"><img src="lol-3.jpg" alt="Cultura 9" loading="lazy"></div>
+                        <div class="gallery-item"><img src="lol-4.jpg" alt="Cultura 10" loading="lazy"></div>
+                        <div class="gallery-item"><img src="lol-5.jpg" alt="Cultura 11" loading="lazy"></div>
+                        <div class="gallery-item"><img src="lol-6.jpg" alt="Cultura 12" loading="lazy"></div>
                     </div>
                     
-                    </div>
+                </div>
             </div>
 
             <button class="gallery-arrow next-arrow" id="nextGallery">❯</button>
         </div>
 
         <div class="grid-footer reveal delay-2">
-            <p>Imágenes de nuestro equipo en acción</p>
+            <p>Sé parte de una cultura de impacto</p>
             <a href="#talento" class="btn-contacto-azul">CONTÁCTENOS</a>
         </div>
     </section>
@@ -1506,6 +1477,38 @@
             });
         });
 
+        // JS PARA EL CARRUSEL DE GALERÍA DE CULTURA
+        const trackGallery = document.getElementById('galleryTrack');
+        const prevGalleryBtn = document.getElementById('prevGallery');
+        const nextGalleryBtn = document.getElementById('nextGallery');
+        
+        if (trackGallery && prevGalleryBtn && nextGalleryBtn) {
+            let currentGalleryIndex = 0;
+            const totalGalleries = document.querySelectorAll('#galleryTrack .cultura-gallery').length;
+
+            function updateGalleryButtons() {
+                prevGalleryBtn.disabled = currentGalleryIndex === 0;
+                nextGalleryBtn.disabled = currentGalleryIndex === totalGalleries - 1;
+            }
+
+            updateGalleryButtons();
+
+            prevGalleryBtn.addEventListener('click', () => {
+                if (currentGalleryIndex > 0) {
+                    currentGalleryIndex--;
+                    trackGallery.style.transform = `translateX(-${currentGalleryIndex * 100}%)`;
+                    updateGalleryButtons();
+                }
+            });
+
+            nextGalleryBtn.addEventListener('click', () => {
+                if (currentGalleryIndex < totalGalleries - 1) {
+                    currentGalleryIndex++;
+                    trackGallery.style.transform = `translateX(-${currentGalleryIndex * 100}%)`;
+                    updateGalleryButtons();
+                }
+            });
+        }
     </script>
 </body>
 </html>
